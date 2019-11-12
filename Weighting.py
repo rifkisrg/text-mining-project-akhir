@@ -1,5 +1,6 @@
 import math
 import numpy as np
+from statistics import mean
 
 class Weight:
     def __init__(self):
@@ -96,16 +97,14 @@ class Weight:
 
     def getAvg(self):
         temp = []
-        avgs = []
         transpose = tuple(zip(*self.normal))
 
         for x in range(0, len(transpose)):
-            avg = sum(transpose[x]) / len(transpose[x])
+            avg = mean(transpose[x])
             temp.append(avg)
-
         
-        avg = sum(temp) / len(temp)
-        avgs.append(avg)
+        # avg = mean(temp)
+        # avgs.append(avg)
             
-        return avgs
+        return temp
     

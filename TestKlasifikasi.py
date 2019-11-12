@@ -2,7 +2,9 @@ from Klasifikasi import Klasifikasi
 import os
 import glob
 import errno
+import datetime
 
+print("Start = ", datetime.datetime.now())
 path = 'Data/Data coba/*/*.txt'
 files_in_path = glob.glob(path)
 
@@ -23,3 +25,4 @@ for file in files_in_path:
 klasifikasi = Klasifikasi()
 
 klasifikasi.train(files, files_cat)
+print("End = ", datetime.datetime.now())
