@@ -102,9 +102,6 @@ class Weight:
         for x in range(0, len(transpose)):
             avg = mean(transpose[x])
             temp.append(avg)
-        
-        # avg = mean(temp)
-        # avgs.append(avg)
             
         return temp
     

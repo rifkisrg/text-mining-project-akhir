@@ -35,29 +35,14 @@ class Klasifikasi:
         weight.getNormal()
         docs_with_class = [list(item) for item in zip(weight.getAvg(), category)]
 
-        # for x in range(0, len(docs_with_class)):
-        #     temp = []
-        #     for y in range(q, len(category)):
-        #         if docs_with_class[x][1] == category[y]:
-        #             temp.append(docs_with_class[x][0])
-        #             avg = mean(temp)
-        #             avg_class.append(avg)
-        #             temp = []
-        #             q += 1
-        #             break
-        for docs in docs_with_class:
-            if docs[1] in category:
-                temp.append(docs[0])
+        for cat in category:
+            for x in range(0, len(docs_with_class)):
+                if cat == docs_with_class[x][1]:
+                    temp.append(docs_with_class[x][0])
             avg = mean(temp)
-            avg_class.append(avg)
+            if avg not in avg_class:
+                avg_class.append(avg)
             temp = []
 
+        print(pd.DataFrame(docs_with_class))
         print(pd.DataFrame(avg_class))
-        
-
-# weight.setText(documents)
-# feat = weight.getFeatures()
-# weight.getTF()
-# weight.getIDF()
-# weight.getTFIDF()
-# print(pd.DataFrame(weight.getNormal()))
