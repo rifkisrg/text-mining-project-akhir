@@ -4,6 +4,8 @@ import errno
 from Preprocessing import preprocess as pp
 from Weighting import Weight
 import pandas as pd
+from statistics import mean
+import itertools
 
 class Klasifikasi:
     def __init__(self):
@@ -13,6 +15,7 @@ class Klasifikasi:
 
     def train(self, files, category):
         tokens = []
+        avg_class = []
 
         for file in files:
             docs_cleaned = pp.cleaning(file)
@@ -28,8 +31,18 @@ class Klasifikasi:
         weight.getTF()
         weight.getIDF()
         weight.getTFIDF()
-        print(pd.DataFrame(zip(weight.getNormal(), category)))
-        
+        weight.getNormal()
+        docs_with_class = [list(item) for item in zip(weight.getAvg(), category)]
+
+        for x in range(0, len(docs_with_class)):
+            temp = []
+            if docs_with_class[x][1] in category:
+                temp.append(docs_with_class[x][0])
+                avg = mean(temp)
+                avg_class.append(avg)
+                temp = []
+
+        print(pd.DataFrame(avg_class))
 
 # weight.setText(documents)
 # feat = weight.getFeatures()
