@@ -49,26 +49,26 @@ class Weight:
             q = 0
 
         for z in DF:
-            s = math.log10(leng/z)
+            s = math.log10(leng / z)
             self.IDF.append(s)
 
         return self.IDF
-
+        
     def getTFIDF(self):
         temp = []
-        inc = 0
+        count = 0
 
         for i in self.IDF:
-            for j in range(inc, len(self.TF)):
+            for j in range(count, len(self.TF)):
                 for k in self.TF[j]:
                     res = i * k
 
                     temp.append(res)
                 self.TFIDF.append(temp)
                 temp = []
-                inc+=1
+                count += 1
                 break
-        
+
         return self.TFIDF
 
     def getNormal(self):
@@ -76,32 +76,23 @@ class Weight:
         temp = []
         sm = 0
         tpose = tuple(zip(*self.TFIDF))
-
+		
         # for row in tpose:
-        for x in range(0, len(tpose)):
+        for x in range(len(tpose)):
             for i in tpose[x]:
                 sm += math.pow(i, 2)
                 sms = math.sqrt(sm)
             normalTemp.append(sms)
             sm = 0
-
+            
         for row in self.TFIDF:
-            for i in range(0, len(row)):
-                total = row[i] / normalTemp[i]
+            for i in range(len(row)):
+                if (normalTemp[i] != 0):
+                    total = row[i] / normalTemp[i]
+                else:
+                    total = 0
                 temp.append(total)
             self.normal.append(temp)
             temp = []
 
-
         return self.normal
-
-    def getAvg(self):
-        temp = []
-        transpose = tuple(zip(*self.normal))
-
-        for x in range(0, len(transpose)):
-            avg = mean(transpose[x])
-            temp.append(avg)
-            
-        return temp
-    
