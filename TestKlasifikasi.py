@@ -5,8 +5,8 @@ import errno
 import datetime
 
 print("Start = ", datetime.datetime.now())
-# path = input('Input Direktori: ')
-# path_data_uji = input("Input Data Uji: ")
+path = input('Input Direktori: ')
+path_data_uji = input("Input Data Uji: ")
 # files_in_path = glob.glob(path)
 
 # files = []
@@ -26,10 +26,10 @@ print("Start = ", datetime.datetime.now())
 
 klasifikasi = Klasifikasi()
 
-# klasifikasi.train(files, files_cat)
+klasifikasi.train(klasifikasi.getFiles(path), klasifikasi.getCategories(path))
 
-# file_uji = klasifikasi.getFiles(path_data_uji)
-
-klasifikasi.test()
+old_class = klasifikasi.getCategories(path_data_uji)
+new_class = klasifikasi.test(klasifikasi.getFiles(path_data_uji))
+print(klasifikasi.hitungAkurasi(new_class, old_class))
 
 print("End = ", datetime.datetime.now())
