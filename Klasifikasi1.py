@@ -55,6 +55,7 @@ class Klasifikasi:
 		# print(tokens)
 		# a = np.asarray(tokens)
 		# np.savetxt("token data train coba.csv", a, delimiter=",")
+
 		# resultFile = open("token-data-train.csv", 'w')
 		# for row in tokens:
 		# 	for element in row:
@@ -70,7 +71,12 @@ class Klasifikasi:
 		weight.getIDF()
 		weight.getTFIDF()
 		result_weight = weight.getNormal()
-		
+
+		resultFile = open("fitur-data-train.csv", 'w')
+		for element in self.fiturDataTrain:
+			resultFile.write(element + "\n")
+		resultFile.close()
+
 		for term in result_weight:
 			sum_finance = 0
 			count_finance = 0
@@ -148,8 +154,13 @@ class Klasifikasi:
 		dataUji_zipped = [list(item) for item in zip(*newDataUji)]
 		dataTrain_zipped = [list(item) for item in zip(*self.avg_term_class)]
 
-		resultFile = open("fitur-data-uji.csv", 'w')
-		for element in newFiturDataUji:
+		# resultFile = open("fitur-data-uji.csv", 'w')
+		# for element in newFiturDataUji:
+		# 	resultFile.write(element + "\n")
+		# resultFile.close()
+
+		resultFile = open("data-uji.csv", 'w')
+		for element in newDataUji:
 			resultFile.write(element + "\n")
 		resultFile.close()
 
