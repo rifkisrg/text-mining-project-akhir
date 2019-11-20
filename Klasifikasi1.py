@@ -52,6 +52,15 @@ class Klasifikasi:
 			docs_filtered = pp.filtering(docs_token)
 			docs_stemming_token = pp.stemming(docs_filtered)
 			tokens.append(docs_stemming_token)
+		# print(tokens)
+		# a = np.asarray(tokens)
+		# np.savetxt("token data train coba.csv", a, delimiter=",")
+		# resultFile = open("token-data-train.csv", 'w')
+		# for row in tokens:
+		# 	for element in row:
+		# 		resultFile.write(element + ",")
+		# 	resultFile.write("\n")
+		# resultFile.close()
 
 		# weighting
 		weight = Weight()
@@ -109,6 +118,14 @@ class Klasifikasi:
 			docs_filtered = pp.filtering(docs_token)
 			docs_stemming_token = pp.stemming(docs_filtered)
 			tokens.append(docs_stemming_token)
+		# b = np.asarray(tokens)
+		# np.savetxt("token data uji coba", b, delimiter=",")
+		# resultFile = open("token-data-uji.csv", 'w')
+		# for row in tokens:
+		# 	for element in row:
+		# 		resultFile.write(element + ",")
+		# 	resultFile.write("\n")
+		# resultFile.close()
 
 		weight = Weight()
 		weight.setText(tokens)
@@ -130,6 +147,11 @@ class Klasifikasi:
 
 		dataUji_zipped = [list(item) for item in zip(*newDataUji)]
 		dataTrain_zipped = [list(item) for item in zip(*self.avg_term_class)]
+
+		resultFile = open("fitur-data-uji.csv", 'w')
+		for element in newFiturDataUji:
+			resultFile.write(element + "\n")
+		resultFile.close()
 
 		dump = []
 		for x in dataUji_zipped:
