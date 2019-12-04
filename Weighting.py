@@ -77,11 +77,10 @@ class Weight:
         sm = 0
         tpose = tuple(zip(*self.TFIDF))
 
-        # for row in tpose:
         for x in range(0, len(tpose)):
             for i in tpose[x]:
                 sm += math.pow(i, 2)
-                sms = math.sqrt(sm)
+            sms = math.sqrt(sm)
             normalTemp.append(sms)
             sm = 0
 
@@ -91,17 +90,5 @@ class Weight:
                 temp.append(total)
             self.normal.append(temp)
             temp = []
-
-
         return self.normal
-
-    def getAvg(self):
-        temp = []
-        transpose = tuple(zip(*self.normal))
-
-        for x in range(0, len(transpose)):
-            avg = mean(transpose[x])
-            temp.append(avg)
-            
-        return temp
     

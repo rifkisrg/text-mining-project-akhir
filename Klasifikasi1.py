@@ -37,7 +37,6 @@ class Klasifikasi:
 		files_in_path = glob.glob(path)
 		for file in files_in_path:
 			kelas_asli.append(os.path.split(os.path.dirname(file))[-1])
-		
 		return kelas_asli
 
 	def train(self, files, category):
@@ -52,16 +51,6 @@ class Klasifikasi:
 			docs_filtered = pp.filtering(docs_token)
 			docs_stemming_token = pp.stemming(docs_filtered)
 			tokens.append(docs_stemming_token)
-		# print(tokens)
-		# a = np.asarray(tokens)
-		# np.savetxt("token data train coba.csv", a, delimiter=",")
-
-		# resultFile = open("token-data-train.csv", 'w')
-		# for row in tokens:
-		# 	for element in row:
-		# 		resultFile.write(element + ",")
-		# 	resultFile.write("\n")
-		# resultFile.close()
 
 		# weighting
 		weight = Weight()
@@ -71,11 +60,6 @@ class Klasifikasi:
 		weight.getIDF()
 		weight.getTFIDF()
 		result_weight = weight.getNormal()
-
-		resultFile = open("fitur-data-train.csv", 'w')
-		for element in self.fiturDataTrain:
-			resultFile.write(element + "\n")
-		resultFile.close()
 
 		for term in result_weight:
 			sum_finance = 0
@@ -88,7 +72,6 @@ class Klasifikasi:
 			count_inet = 0
 			sum_sport = 0
 			count_sport = 0
-			
 			for i in range(len(term)):
 				if (self.files_category[i] == "finance"):
 					sum_finance += term[i]
@@ -124,14 +107,6 @@ class Klasifikasi:
 			docs_filtered = pp.filtering(docs_token)
 			docs_stemming_token = pp.stemming(docs_filtered)
 			tokens.append(docs_stemming_token)
-		# b = np.asarray(tokens)
-		# np.savetxt("token data uji coba", b, delimiter=",")
-		# resultFile = open("token-data-uji.csv", 'w')
-		# for row in tokens:
-		# 	for element in row:
-		# 		resultFile.write(element + ",")
-		# 	resultFile.write("\n")
-		# resultFile.close()
 
 		weight = Weight()
 		weight.setText(tokens)
@@ -154,16 +129,6 @@ class Klasifikasi:
 		dataUji_zipped = [list(item) for item in zip(*newDataUji)]
 		dataTrain_zipped = [list(item) for item in zip(*self.avg_term_class)]
 
-		# resultFile = open("fitur-data-uji.csv", 'w')
-		# for element in newFiturDataUji:
-		# 	resultFile.write(element + "\n")
-		# resultFile.close()
-
-		resultFile = open("data-uji.csv", 'w')
-		for element in newDataUji:
-			resultFile.write(element + "\n")
-		resultFile.close()
-
 		dump = []
 		for x in dataUji_zipped:
 			zat = []
@@ -172,30 +137,26 @@ class Klasifikasi:
 				zat.append(sum(test))
 			dump.append(zat)
 
-		haha = []
+		dump2 = []
 		for x in dump:
-			yoi = []
+			dump3 = []
 			for y in x:
 				new_dump = sum(y)
-				yoi.append(new_dump)
-			haha.append(yoi)
-			yoi = []
+				dump3.append(new_dump)
+			dump2.append(dump3)
+			dump3 = []
 
 		cat = ['finance', 'food', 'health', 'inet', 'sport']
 		kelas_hasil = []
-		for x in haha:
+		for x in dump2:
 			ind = np.argmax(x)
 			kelas_hasil.append(cat[ind])
-
 		return kelas_hasil
 
 	def hitungAkurasi(self, kelas_hasil, kelas_asli):
 		temp = 0
-
 		for x in range(0, len(kelas_hasil)):
 			if kelas_hasil[x] == kelas_asli[x]:
 				temp += 1
-
 		accuration = (temp / len(kelas_hasil)) * 100
-
 		return accuration
